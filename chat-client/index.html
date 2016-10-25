@@ -11,19 +11,23 @@
 
 <body>
 
-    <p>A common form that includes input tags</p>
+    <p>Three ways to natively send a POST request from a form element</p>
+
+    <br>
+
     <p>POSTing using the browsers native form element behavior</p>
-    <p>Browser natively redirects</p>
-    <form action="http://localhost:3000/v1/messages2" method="post">
+    <p>Browser natively redirects. Blocking this default behavior also blocks the POST request.</p>
+    <form action="https://hidden-harbor-97228.herokuapp.com/v1/messages2" method="post">
         <label>First name: <input type="text" name="user_name"></label><br>
         <label>E-mail: <input type="email" name="user_mail"></label><br>
         <label>Message: <input type="test" name="message"></label><br>
         <input type="submit" value="Submit">
     </form>
 
+    <br>
 
     <p>POSTing through using XMLHttpRequest using the FormData object</p>
-    <p>Submit button is actually of type "button", and has an onclick listener</p>
+    <p>Submit button is actually of type "button", and has an onclick listener.</p>
     <form id="formData">
         <label>First name: <input type="text" name="user_name"></label><br>
         <label>E-mail: <input type="email" name="user_mail"></label><br>
@@ -37,13 +41,19 @@
             var request = new XMLHttpRequest();
             var formData = new FormData(formElement);
 
-            request.open("POST", "http://localhost:3000/v1/messages2");
+	    var url = "https://hidden-harbor-97228.herokuapp.com/v1/messages2";
+            
+	    request.open("POST", url);
+	    //request.open("POST", "http://localhost:3000/v1/messages2");
+
             request.send(formData);
         }
     </script>
 
-    <p>A common form that includes input tags</p>
+    <br>
+
     <p>POSTing by translating form data into URL encoded POST request</p>
+    <p>The key value pairs of the form element are enumerated and url encoded </p>
     <form id="urlEncoded">
         <label>First name: <input type="text" name="user_name"></label><br>
         <label>E-mail: <input type="email" name="user_mail"></label><br>
@@ -67,7 +77,9 @@
 
             urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-            XHR.open('POST', 'http://localhost:3000/v1/messages2');
+            var url = "https://hidden-harbor-97228.herokuapp.com/v1/messages2";
+	    
+	    XHR.open('POST', url);
             XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             XHR.send(urlEncodedData);
         }
